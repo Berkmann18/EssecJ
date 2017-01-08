@@ -85,6 +85,19 @@ public class Essec {
 	}
 
 	/**
+	 * Ask something to the user
+	 * @param msg Message printed as the request
+	 * @return User input
+	 */
+	static String input(String msg) {
+	    Scanner k = new Scanner(System.in);
+	    p(msg);
+	    String strBuffer = k.nextLine();
+	    k.close();
+	    return strBuffer;
+	}
+	
+	/**
 	 * Prompt a password from user.
 	 * 
 	 * @param label
@@ -104,12 +117,11 @@ public class Essec {
 	 */
 	static String promptPassword() {
 		String pw = "";
-		final String message = "Password: ";
 		if (System.console() == null) {
 			final JPasswordField pf = new JPasswordField();
-			pw = JOptionPane.showConfirmDialog(null, pf, message, JOptionPane.OK_CANCEL_OPTION,
+			pw = JOptionPane.showConfirmDialog(null, pf, "Password", JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION ? new String(pf.getPassword()) : "";
-		} else pw = new String(System.console().readPassword("%s> ", message));
+		} else pw = new String(System.console().readPassword("%s> ", "Password: "));
 		return pw;
 	}
 
@@ -411,5 +423,15 @@ public class Essec {
 	 */
 	public boolean isNumeric(String str) {
 		return str.matches("[-+]?\\d*\\.?\\d*") && !str.equals("-");
+	}
+	
+	/**
+	 * Block the execution while waiting for a user input
+	 */
+	static void pause() {
+		Scanner kbd = new Scanner(System.in);
+		pl("Press enter to continue...");
+		kbd.nextLine();
+		kbd.close();
 	}
 }
